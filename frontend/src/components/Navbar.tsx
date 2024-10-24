@@ -48,59 +48,8 @@ const Navbar = () => {
             {navLinks.map((navLink) => (
               <NavLinks navItem={navLink} key={navLink.item} />
             ))}
-
-            {/* <li className="relative px-6 py-3">
-              <span className="absolute inset-y-0 left-0 w-1 rounded-br-lg bg-secondary-punchPink"></span>
-              <span className="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 cursor-pointer">
-                <img
-                  src="/src/assets/svgs/shield.svg"
-                  className="w-[1em] h-[1em]"
-                  alt="Access Control"
-                />
-                <span className="inline-flex items-center">
-                  <span className="ml-4">Access Control</span>
-                </span>
-              </span>
-              <ul className="p-2 mt-2 space-y-2 overflow-hidden text-sm font-medium text-gray-500 rounded-md shadow-inner bg-gray-50 ">
-                {navAccessControlLinks.map((navLink) => (
-                  <li className="px-2 py-1 transition-colors duration-150 hover:text-gray-800 cursor-pointer">
-                    <span
-                      className={`w-full ${navLink.active && "text-gray-800"}`}
-                    >
-                      {navLink.item}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </li>
-            <li className="relative px-6 py-3">
-              <span className="absolute inset-y-0 left-0 w-1 rounded-tr-lg rounded-br-lg"></span>
-              <span className="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800">
-                <img
-                  src="/src/assets/svgs/globalConfiguration.svg"
-                  className="w-[1em] h-[1em]"
-                  alt="Configuration"
-                />
-                <span className="inline-flex items-center ml-4">
-                  Global Configurations
-                </span>
-              </span>
-            </li>
-            <li className="relative px-6 py-3">
-              <span className="absolute inset-y-0 left-0 w-1 rounded-tr-lg rounded-br-lg"></span>
-              <span className="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800">
-                <img
-                  src="/src/assets/svgs/globalConfiguration.svg"
-                  className="w-[1em] h-[1em]"
-                  alt="Configuration"
-                />
-                <span className="inline-flex items-center ml-4">
-                  Global Configurations
-                </span>
-              </span>
-            </li> */}
           </ul>
-          <div></div>
+          <div className="px-6 font-semibold">v 4.19.0</div>
         </div>
       </div>
     </aside>

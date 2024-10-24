@@ -4,6 +4,7 @@ export default {
   theme: {
     extend: {
       colors: {
+        "primary-dark": "rgb(0,86,145)",
         "secondary-punchPink": "#e46a76",
       },
     },
