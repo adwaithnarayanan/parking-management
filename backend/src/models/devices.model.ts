@@ -14,8 +14,6 @@ import {
   PrimaryKey,
   UpdatedAt,
 } from "@sequelize/core/decorators-legacy";
-import { PostgresDialect } from "@sequelize/postgres";
-import "dotenv/config";
 
 export class Device extends Model<
   InferAttributes<Device>,
@@ -52,16 +50,17 @@ export class Device extends Model<
   declare deletionDate: CreationOptional<Date>;
 }
 
-const sequelize = new Sequelize({
-  port: Number(process.env.PGPORT),
-  user: process.env.PGUSER,
-  host: process.env.PGHOST,
-  password: process.env.PGPASSWORD,
+// const sequelize = new Sequelize({
+//   port: Number(process.env.PGPORT),
+//   user: process.env.PGUSER,
+//   host: process.env.PGHOST,
+//   password: process.env.PGPASSWORD,
 
-  models: [Device],
-  dialect: PostgresDialect,
-});
+//   models: [Device],
+//   dialect: PostgresDialect,
+// });
 
-(async () => {
-  await sequelize.sync();
-})();
+// (async () => {
+//   console.log(1234, "device");
+//   await sequelize.sync();
+// })();
