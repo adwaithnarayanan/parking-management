@@ -1,11 +1,18 @@
 {
   "compilerOptions": {
     "target": "es6",
-    "module": "commonjs",
+    // "module": "commonjs",
     "outDir": "./dist",
     "rootDir": "./src",
     "strict": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    //
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "experimentalDecorators": true,
+    "sourceMap": true,
+    "declaration": false,
+    "skipLibCheck": true
   },
   "include": ["src/**/*"]
 }
