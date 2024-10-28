@@ -1,5 +1,5 @@
 import express from "express";
-import { postDevice } from "../controllers/controller";
+import { postDevice } from "../controllers/controller.js";
 
 const router = express.Router();
 
