@@ -11,11 +11,11 @@ const options = {
   password: process.env.PGPASSWORD,
   database: process.env.PGDATABASE,
 
-  models: [Camera, Device],
+  models: [Device, Camera],
   dialect: PostgresDialect,
 };
 
-const sequelizeConnection = new Sequelize({ ...options });
+const sequelizeConnection = new Sequelize(options);
 
 export async function dbConnection() {
   await sequelizeConnection.sync();

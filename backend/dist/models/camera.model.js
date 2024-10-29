@@ -5,37 +5,32 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 import { DataTypes, Model, } from "@sequelize/core";
-import { Attribute, AutoIncrement, PrimaryKey, } from "@sequelize/core/decorators-legacy";
+import { Attribute, AutoIncrement, NotNull, PrimaryKey, } from "@sequelize/core/decorators-legacy";
 export class Camera extends Model {
 }
 __decorate([
     Attribute(DataTypes.INTEGER),
     PrimaryKey,
-    AutoIncrement
+    AutoIncrement,
+    NotNull
 ], Camera.prototype, "id", void 0);
 __decorate([
-    Attribute(DataTypes.INTEGER)
+    Attribute(DataTypes.INTEGER),
+    NotNull
 ], Camera.prototype, "cameraId", void 0);
 __decorate([
-    Attribute(DataTypes.STRING)
+    Attribute(DataTypes.STRING),
+    NotNull
 ], Camera.prototype, "name", void 0);
 __decorate([
     Attribute(DataTypes.INTEGER)
 ], Camera.prototype, "externalId", void 0);
 __decorate([
-    Attribute(DataTypes.BOOLEAN)
+    Attribute(DataTypes.BOOLEAN),
+    NotNull
 ], Camera.prototype, "activated", void 0);
-// const sequelize = new Sequelize({
-//   port: Number(process.env.PGPORT),
-//   user: process.env.PGUSER,
-//   host: process.env.PGUSER,
-//   password: process.env.PGPASSWORD,
-//   database: process.env.PGDATABASE,
-//   models: [Camera],
-//   dialect: PostgresDialect,
-// });
-// (async () => {
-//   console.log(6587876, "camera");
-//   await sequelize.sync();
-// })();
+__decorate([
+    Attribute(DataTypes.INTEGER),
+    NotNull
+], Camera.prototype, "deviceId", void 0);
 //# sourceMappingURL=camera.model.js.map

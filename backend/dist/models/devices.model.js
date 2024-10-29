@@ -5,7 +5,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 import { DataTypes, Model, } from "@sequelize/core";
-import { Attribute, AutoIncrement, CreatedAt, DeletedAt, NotNull, PrimaryKey, UpdatedAt, } from "@sequelize/core/decorators-legacy";
+import { Attribute, AutoIncrement, CreatedAt, DeletedAt, HasMany, NotNull, PrimaryKey, UpdatedAt, } from "@sequelize/core/decorators-legacy";
+import { Camera } from "./camera.model.js";
 export class Device extends Model {
 }
 __decorate([
@@ -38,16 +39,10 @@ __decorate([
 __decorate([
     DeletedAt
 ], Device.prototype, "deletionDate", void 0);
-// const sequelize = new Sequelize({
-//   port: Number(process.env.PGPORT),
-//   user: process.env.PGUSER,
-//   host: process.env.PGHOST,
-//   password: process.env.PGPASSWORD,
-//   models: [Device],
-//   dialect: PostgresDialect,
-// });
-// (async () => {
-//   console.log(1234, "device");
-//   await sequelize.sync();
-// })();
+__decorate([
+    HasMany(() => Camera, {
+        foreignKey: "deviceId",
+        sourceKey: "id",
+    })
+], Device.prototype, "cameras", void 0);
 //# sourceMappingURL=devices.model.js.map
