@@ -11,9 +11,16 @@ type CarridaDevicePropsType = {
       ? void
       : (e: string | React.ChangeEvent<any>) => void;
   };
+  errors: any;
+  handleBlur: any;
 };
 
-const CarridaDevice = ({ values, handleChange }: CarridaDevicePropsType) => {
+const CarridaDevice = ({
+  values,
+  errors,
+  handleChange,
+  handleBlur,
+}: CarridaDevicePropsType) => {
   return (
     <form action="">
       <div className="flex gap-2 items-start justify-between">
@@ -27,8 +34,9 @@ const CarridaDevice = ({ values, handleChange }: CarridaDevicePropsType) => {
               label="Label"
               value={values.label}
               onChange={handleChange}
+              onBlur={handleBlur}
             />
-            {/* <span className="text-red-400 text-sm"></span> */}
+            <span className="text-red-400 text-sm">{errors.label}</span>
           </div>
         </div>
         <div className="flex gap-2 mt-7">

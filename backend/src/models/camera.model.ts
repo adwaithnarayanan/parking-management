@@ -31,7 +31,7 @@ export class Camera extends Model<
   declare name: string;
 
   @Attribute(DataTypes.INTEGER)
-  declare externalId: number;
+  declare externalId: number | null;
 
   @Attribute(DataTypes.BOOLEAN)
   @NotNull

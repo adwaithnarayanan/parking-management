@@ -2,6 +2,7 @@ import express from "express";
 import {
   addCamera,
   deleteCamera,
+  editCamera,
   getCameras,
   getSavedCameras,
   getUnsavedUncannyCameras,
@@ -24,7 +25,7 @@ cameraRouter.get(
   paramsValidation(getSavedCamerasSchema),
   getSavedCameras
 );
-
+cameraRouter.put("/", editCamera);
 // Dummy data
 cameraRouter.get("/new/uncanny", getUnsavedUncannyCameras);
 

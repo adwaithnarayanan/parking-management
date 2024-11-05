@@ -3,12 +3,12 @@ import CamerasSection from "./CamerasSection";
 import { useGetDevices } from "../hooks/APIs/useGetDevices";
 
 const DeviceIntegration = () => {
-  const { data: deviceData, isSuccess: isSuccessGetDevice } = useGetDevices();
+  const { data: deviceData } = useGetDevices();
 
   return (
     <>
       <ANPRDevices deviceData={deviceData} />
-      <CamerasSection deviceData={deviceData?.data} />
+      {deviceData && <CamerasSection deviceData={deviceData?.data} />}
     </>
   );
 };

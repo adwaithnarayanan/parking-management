@@ -4,17 +4,22 @@ import SectionInputField from "./SectionInputField";
 import { UncannyDeviceType } from "../../types";
 import { useEditDevice } from "../hooks/APIs/useEditDevice";
 import { useAddDevice } from "../hooks/APIs/useAddDevice";
-import { useDeleteDevice } from "../hooks/APIs/useDeleteDevice";
 import Message from "./Message";
 import { UncannyDeviceSchema } from "../validationSchamas/schema";
+import { useRef } from "react";
 
 type UncannyDevicePropsType = {
   device: UncannyDeviceType;
-  setAddNewDevice: React.Dispatch<React.SetStateAction<boolean>>;
+  handleHidePopup: (flag: boolean) => void;
+  handleDeleteDevice: (deleteId: { id?: number }) => void;
 };
 
-const UncannyDevice = ({ device, setAddNewDevice }: UncannyDevicePropsType) => {
-  // console.log(device);
+const UncannyDevice = ({
+  device,
+  handleHidePopup,
+  handleDeleteDevice,
+}: UncannyDevicePropsType) => {
+  const showMessageRef = useRef(false);
   const { mutate: mutateEditDevice, isSuccess: isSuccessEditDevice } =
     useEditDevice();
   const {
@@ -23,14 +28,14 @@ const UncannyDevice = ({ device, setAddNewDevice }: UncannyDevicePropsType) => {
     isError: isErrorAddDevice,
   } = useAddDevice();
 
-  const { mutate: mutateDeleteDevice } = useDeleteDevice();
+  if (isSuccessEditDevice || isSuccessAddDevice) handleHidePopup(false);
 
-  if (isSuccessEditDevice || isSuccessAddDevice) setAddNewDevice(false);
-
-  const handleDeleteDevice = (deleteId: { id?: number }) => {
-    if (deleteId.id) mutateDeleteDevice({ id: deleteId.id });
-    else setAddNewDevice(false);
-  };
+  if (isSuccessAddDevice || isErrorAddDevice) {
+    showMessageRef.current = true;
+    setTimeout(() => {
+      showMessageRef.current = false;
+    }, 2000);
+  }
 
   return (
     <Formik
@@ -126,8 +131,18 @@ const UncannyDevice = ({ device, setAddNewDevice }: UncannyDevicePropsType) => {
               </Button>
             </div>
           </div>
-          {isSuccessAddDevice && (
-            <Message message="Added device" messageType="success" />
+          {showMessageRef.current && isSuccessAddDevice ? (
+            <>
+              <Message message="Added device" messageType="success" />
+              <span>message</span>
+            </>
+          ) : (
+            isErrorAddDevice && (
+              <>
+                <Message message="Failed to add device" messageType="failed" />
+                <span>message</span>
+              </>
+            )
           )}
 
           {isErrorAddDevice && (

@@ -2,6 +2,7 @@ import asyncHandler from "express-async-handler";
 import { Request, Response } from "express";
 import {
   deleteCameraFromDb,
+  updateCamera,
   getAllCamerasFromDb,
   getDummyUncannyCameras,
   getSavedCamerasFromDb,
@@ -28,6 +29,11 @@ export const deleteCamera = asyncHandler(
     res.status(response.status).json(response);
   }
 );
+
+export const editCamera = asyncHandler(async (req: Request, res: Response) => {
+  const response = await updateCamera(req.body);
+  res.status(response.status).json(response);
+});
 
 export const getSavedCameras = asyncHandler(
   async (req: Request, res: Response) => {

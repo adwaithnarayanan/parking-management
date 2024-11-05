@@ -2,6 +2,7 @@ import UncannyDevice from "./UncannyDevice.tsx";
 import { Devices, UncannyGetDeviceType } from "../../types.ts";
 import { useState } from "react";
 import Button from "./Button.tsx";
+import { useDeleteDevice } from "../hooks/APIs/useDeleteDevice.ts";
 
 const devices: { name: Devices }[] = [{ name: "uncanny" }];
 
@@ -12,16 +13,25 @@ type ANPRDevicesPropsType = {
 };
 
 const ANPRDevices = ({ deviceData }: ANPRDevicesPropsType) => {
-  // console.log(deviceData);
   const [expanded, setExpanded] = useState(false);
-  // const [deviceType, setDeviceType] = useState<Devices>("");
   const [addNewDevice, setAddNewDevice] = useState(false);
 
-  // const handleSelectDevice = (deviceName: Devices) => {
+  const { mutate: mutateDeleteDevice } = useDeleteDevice();
+
+  const handleDeleteDevice = (deleteId: { id?: number }) => {
+    console.log(deleteId);
+    console.log(1234);
+    if (deleteId.id) mutateDeleteDevice({ id: deleteId.id });
+    else setAddNewDevice(false);
+  };
+
   const handleSelectDevice = () => {
-    // setDeviceType(deviceName);
     setExpanded(false);
     setAddNewDevice(true);
+  };
+
+  const handleHidePopup = (flag: boolean) => {
+    setAddNewDevice(flag);
   };
 
   const handleAddNewDevice = (_: { id?: number; index?: number }) => {
@@ -35,16 +45,18 @@ const ANPRDevices = ({ deviceData }: ANPRDevicesPropsType) => {
         deviceData.data?.map((item, idx) => (
           <div key={idx}>
             <UncannyDevice
+              handleHidePopup={handleHidePopup}
               device={{ ...item }}
-              setAddNewDevice={setAddNewDevice}
+              handleDeleteDevice={handleDeleteDevice}
             />
           </div>
         ))}
 
       {addNewDevice && (
         <UncannyDevice
+          handleHidePopup={handleHidePopup}
           device={uncannyInitialValues}
-          setAddNewDevice={setAddNewDevice}
+          handleDeleteDevice={handleDeleteDevice}
         />
       )}
 
