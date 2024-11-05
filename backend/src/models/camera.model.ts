@@ -40,4 +40,16 @@ export class Camera extends Model<
   @Attribute(DataTypes.INTEGER)
   @NotNull
   declare deviceId: number;
+
+  @Attribute(DataTypes.STRING)
+  @NotNull
+  declare ip: string;
+
+  @Attribute(DataTypes.INTEGER)
+  @NotNull
+  declare port: number;
+
+  @Attribute(DataTypes.STRING)
+  @NotNull
+  declare label: string;
 }

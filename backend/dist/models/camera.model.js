@@ -33,4 +33,16 @@ __decorate([
     Attribute(DataTypes.INTEGER),
     NotNull
 ], Camera.prototype, "deviceId", void 0);
+__decorate([
+    Attribute(DataTypes.STRING),
+    NotNull
+], Camera.prototype, "ip", void 0);
+__decorate([
+    Attribute(DataTypes.INTEGER),
+    NotNull
+], Camera.prototype, "port", void 0);
+__decorate([
+    Attribute(DataTypes.STRING),
+    NotNull
+], Camera.prototype, "label", void 0);
 //# sourceMappingURL=camera.model.js.map

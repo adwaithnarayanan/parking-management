@@ -1,3 +1,5 @@
+import { UncannyHandleBlurType } from "../../types";
+
 type SectionInputFieldPropType = {
   type: "text" | "number";
   id: string;
@@ -6,6 +8,7 @@ type SectionInputFieldPropType = {
   value: string | number;
   label: string;
   onChange?: React.ChangeEventHandler<HTMLInputElement> | undefined;
+  onBlur: UncannyHandleBlurType;
 };
 
 const SectionInputField = ({ label, ...props }: SectionInputFieldPropType) => {

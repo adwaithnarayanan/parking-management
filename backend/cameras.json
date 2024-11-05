@@ -2,20 +2,20 @@
   "property": {
     "camera1": {
       "activated": true,
-      "external_id": 0,
-      "camera_id": 1,
+      "externalId": 0,
+      "cameraId": 1,
       "name": "EntryGate anpr 1 name changed"
     },
     "camera2": {
       "activated": true,
-      "external_id": null,
-      "camera_id": 2,
+      "externalId": null,
+      "cameraId": 2,
       "name": "ExitGate anpr 1"
     },
-    "cameran": {
+    "camera3": {
       "activated": true,
-      "external_id": 2,
-      "camera_id": 3,
+      "externalId": 2,
+      "cameraId": 3,
       "name": "hidden gate anpr 1"
     }
   },

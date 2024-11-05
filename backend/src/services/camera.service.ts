@@ -1,5 +1,12 @@
+import { response } from "express";
 import { Camera } from "../models/camera.model.js";
-import { CameraType } from "../types.js";
+import {
+  AllCamerasType,
+  CameraType,
+  ResponseCameraType,
+  unsavedCameraType,
+} from "../types.js";
+import * as fs from "fs";
 
 export async function insertIntoDB(cameraObj: CameraType) {
   const camera = await Camera.create({ ...cameraObj });
@@ -57,4 +64,63 @@ export async function deleteCameraFromDb(id: number) {
       success: false,
     };
   }
+}
+
+export async function getSavedCamerasFromDb(device_id: number) {
+  const savedCameras = (
+    await Camera.findAll({
+      where: { deviceId: device_id },
+    })
+  ).map((camera) => ({ ...camera.dataValues, saved: true }));
+
+  const unSavedCameras = (await getDummyUncannyCameras()).data;
+
+  const unSavedCamerasArr: unsavedCameraType[] = Object.keys(
+    unSavedCameras.property
+  ).map((cameraKey) => unSavedCameras.property[cameraKey]);
+
+  const cameras: ResponseCameraType[] = [...savedCameras];
+
+  unSavedCamerasArr.forEach((unSavedCamera) => {
+    const saved = savedCameras.find(
+      (savedCamera) => unSavedCamera.name === savedCamera.name
+    );
+
+    if (!saved) {
+      cameras.push({ ...unSavedCamera, saved: false });
+    }
+  });
+
+  return cameras
+    ? { status: 200, success: true, message: "Fetched cameras", data: cameras }
+    : { status: 403, success: false, message: "Unable to fetch data" };
+}
+
+export async function getDummyUncannyCameras() {
+  const filePath = "./cameras.json";
+
+  const promise: AllCamerasType = await new Promise((resolve, reject) => {
+    fs.readFile(filePath, "utf8", (err, data) => {
+      if (err) {
+        resolve({
+          status: 403,
+          message: err,
+          success: false,
+        });
+      } else {
+        try {
+          const jsonData = JSON.parse(data);
+          resolve({
+            status: 200,
+            message: "Successfully fetched cameras",
+            success: true,
+            data: jsonData,
+          });
+        } catch (err) {
+          resolve({ status: 403, message: err, success: false });
+        }
+      }
+    });
+  });
+  return promise;
 }

@@ -20,7 +20,7 @@ export const getDevices = asyncHandler(async (req: Request, res: Response) => {
 
 export const deleteDevice = asyncHandler(
   async (req: Request, res: Response) => {
-    const response = await deleteDeviceFromDb(req.body.id);
+    const response = await deleteDeviceFromDb(Number(req.params.id));
     res.status(response.status).json(response);
   }
 );
