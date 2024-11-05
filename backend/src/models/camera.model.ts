@@ -1,4 +1,4 @@
-import Sequelize, {
+import {
   CreationOptional,
   DataTypes,
   InferAttributes,
@@ -8,45 +8,36 @@ import Sequelize, {
 import {
   Attribute,
   AutoIncrement,
+  NotNull,
   PrimaryKey,
 } from "@sequelize/core/decorators-legacy";
-import { PostgresDialect } from "@sequelize/postgres";
-import "dotenv/config";
-import { Device } from "./devices.model.js";
 
 export class Camera extends Model<
-  InferAttributes<Device>,
-  InferCreationAttributes<Device>
+  InferAttributes<Camera>,
+  InferCreationAttributes<Camera>
 > {
   @Attribute(DataTypes.INTEGER)
   @PrimaryKey
   @AutoIncrement
+  @NotNull
   declare id: CreationOptional<number>;
 
   @Attribute(DataTypes.INTEGER)
-  declare cameraId: CreationOptional<number>;
+  @NotNull
+  declare cameraId: number;
 
   @Attribute(DataTypes.STRING)
-  declare name: CreationOptional<string>;
+  @NotNull
+  declare name: string;
 
   @Attribute(DataTypes.INTEGER)
-  declare externalId: CreationOptional<number>;
+  declare externalId: number;
 
   @Attribute(DataTypes.BOOLEAN)
-  declare activated: CreationOptional<boolean>;
+  @NotNull
+  declare activated: boolean;
+
+  @Attribute(DataTypes.INTEGER)
+  @NotNull
+  declare deviceId: number;
 }
-
-const sequelize = new Sequelize({
-  port: Number(process.env.PGPORT),
-  user: process.env.PGUSER,
-  host: process.env.PGUSER,
-  password: process.env.PGPASSWORD,
-  database: process.env.PGDATABASE,
-
-  models: [Camera],
-  dialect: PostgresDialect,
-});
-
-(async () => {
-  await sequelize.sync();
-})();
