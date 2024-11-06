@@ -1,11 +1,13 @@
 import asyncHandler from "express-async-handler";
-import { CameraType } from "../types.js";
 import { Request, Response } from "express";
 import {
   deleteCameraFromDb,
   getAllCamerasFromDb,
+  getDummyUncannyCameras,
+  getSavedCamerasFromDb,
   insertIntoDB,
 } from "../services/camera.service.js";
+import { AllCamerasType } from "../types.js";
 
 export const addCamera = asyncHandler(async (req: Request, res: Response) => {
   const response = await insertIntoDB(req.body);
@@ -21,7 +23,23 @@ export const getCameras = asyncHandler(async (req: Request, res: Response) => {
 
 export const deleteCamera = asyncHandler(
   async (req: Request, res: Response) => {
-    const response = await deleteCameraFromDb(req.body.id);
+    const response = await deleteCameraFromDb(Number(req.params.id));
+
+    res.status(response.status).json(response);
+  }
+);
+
+export const getSavedCameras = asyncHandler(
+  async (req: Request, res: Response) => {
+    const response = await getSavedCamerasFromDb(Number(req.params.id));
+
+    res.status(response.status).json(response);
+  }
+);
+
+export const getUnsavedUncannyCameras = asyncHandler(
+  async (req: Request, res: Response) => {
+    const response: AllCamerasType = await getDummyUncannyCameras();
 
     res.status(response.status).json(response);
   }

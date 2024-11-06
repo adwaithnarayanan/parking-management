@@ -1,4 +1,3 @@
-import { Camera } from "../models/camera.model.js";
 import { Device } from "../models/devices.model.js";
 import { DeviceType, editDeviceType } from "../types.js";
 
@@ -18,11 +17,7 @@ export async function insertIntoDB(deviceObj: DeviceType) {
 
 export async function getAllDevicesFromDb() {
   const devices = await Device.findAll({
-    include: [
-      {
-        model: Camera,
-      },
-    ],
+    order: ["id"],
   });
 
   if (devices.length === 0) {

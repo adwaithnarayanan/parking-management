@@ -11,16 +11,13 @@ import {
   deleteDeviceSchema,
   editDeviceSchema,
 } from "../schemas/device.schama.js";
+import { paramsValidation } from "../middleware/validation.params.middleware.js";
 
 const deviceRouter = express.Router();
 
 deviceRouter.post(`/`, validationMiddleware(addDeviceSchema), addDevice);
 deviceRouter.get(`/`, getDevices);
-deviceRouter.delete(
-  "/",
-  validationMiddleware(deleteDeviceSchema),
-  deleteDevice
-);
+deviceRouter.delete("/:id", paramsValidation(deleteDeviceSchema), deleteDevice);
 deviceRouter.put("/", validationMiddleware(editDeviceSchema), updateDevice);
 
 export { deviceRouter };
