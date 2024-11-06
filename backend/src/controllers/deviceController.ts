@@ -9,7 +9,6 @@ import { Request, Response } from "express";
 
 export const addDevice = asyncHandler(async (req: Request, res: Response) => {
   const response = await insertIntoDB(req.body);
-
   res.status(response.status).json(response);
 });
 

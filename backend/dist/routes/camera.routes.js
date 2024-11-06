@@ -1,7 +1,7 @@
 import express from "express";
 import { addCamera, deleteCamera, editCamera, getCameras, getSavedCameras, getUnsavedUncannyCameras, } from "../controllers/cameraController.js";
 import { validationMiddleware } from "../middleware/validation.middleware.js";
-import { addCameraSchema, deleteCameraSchema, getSavedCamerasSchema, } from "../schemas/camera.schama.js";
+import { addCameraSchema, deleteCameraSchema, getSavedCamerasSchema, } from "../schemas/camera.schema.js";
 import { paramsValidation } from "../middleware/validation.params.middleware.js";
 const cameraRouter = express.Router();
 cameraRouter.post("/", validationMiddleware(addCameraSchema), addCamera);

@@ -75,8 +75,6 @@ export async function getSavedCamerasFromDb(device_id: number) {
 
   const unSavedCameras = (await getDummyUncannyCameras()).data;
 
-  console.log(unSavedCameras);
-
   const unSavedCamerasArr: unsavedCameraType[] = Object.keys(
     unSavedCameras.property
   ).map((cameraKey) => unSavedCameras.property[cameraKey]);

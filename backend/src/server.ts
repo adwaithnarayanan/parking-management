@@ -5,6 +5,7 @@ import { dbConnection } from "./database.js";
 import { cameraRouter } from "./routes/camera.routes.js";
 import bodyParser from "body-parser";
 import cors from "cors";
+import { identifierRouter } from "./routes/identifiers.routes.js";
 
 const app = express();
 
@@ -17,9 +18,14 @@ const port = process.env.PORT || 3000;
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(errorHandler);
 app.use("/devices", deviceRouter);
 app.use("/cameras", cameraRouter);
+app.use("/identifiers", identifierRouter);
+app.all("*", (_, res) => {
+  res.statusCode = 404;
+  throw new Error("Page not found");
+});
+app.use(errorHandler);
 
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
