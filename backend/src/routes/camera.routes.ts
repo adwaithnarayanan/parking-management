@@ -12,7 +12,7 @@ import {
   addCameraSchema,
   deleteCameraSchema,
   getSavedCamerasSchema,
-} from "../schemas/camera.schama.js";
+} from "../schemas/camera.schema.js";
 import { paramsValidation } from "../middleware/validation.params.middleware.js";
 
 const cameraRouter = express.Router();
@@ -26,6 +26,7 @@ cameraRouter.get(
   getSavedCameras
 );
 cameraRouter.put("/", editCamera);
+
 // Dummy data
 cameraRouter.get("/new/uncanny", getUnsavedUncannyCameras);
 

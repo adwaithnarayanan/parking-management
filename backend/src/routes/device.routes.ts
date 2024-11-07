@@ -10,7 +10,7 @@ import {
   addDeviceSchema,
   deleteDeviceSchema,
   editDeviceSchema,
-} from "../schemas/device.schama.js";
+} from "../schemas/device.schema.js";
 import { paramsValidation } from "../middleware/validation.params.middleware.js";
 
 const deviceRouter = express.Router();

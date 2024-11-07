@@ -1,6 +1,7 @@
+import { ErrorRequestHandler, NextFunction } from "express";
 import { constants } from "../constants.js";
 
-const errorHandler = (err: Error, req: any, res: any, next: any) => {
+const errorHandler: ErrorRequestHandler = (err: any, req: any, res: any) => {
   const statusCode = res.statusCode ? res.statusCode : 500;
 
   switch (statusCode) {
