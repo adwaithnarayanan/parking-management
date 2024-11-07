@@ -31,42 +31,56 @@ const CameraPerDevice = ({ device }: CameraPerDevicePropsType) => {
       <div className="flex flex-wrap gap-2 mt-2 flex-col">
         <h1>Saved Cameras</h1>
         <div className="flex flex-wrap gap-2 mt-2">
-          {savedCameras?.map((savedCamera) => (
-            <Cameras key={savedCamera.cameraId}>
-              <span className="text-gray-500 mr-1">
-                #{savedCamera.cameraId}
-              </span>
-              {savedCamera.label}
-              <span className="bg-blue-500 text-white px-2 py-1 rounded-3xl hover:bg-blue-600 ml-2">
-                sync
-              </span>
-            </Cameras>
-          ))}
+          {savedCameras?.length! > 0 ? (
+            savedCameras?.map((savedCamera) => (
+              <Cameras
+                deviceId={device.id!}
+                camera={savedCamera}
+                key={savedCamera.cameraId}
+              >
+                <span className="text-gray-500 mr-1">
+                  #{savedCamera.cameraId}
+                </span>
+                {savedCamera.label}
+                <span className="bg-blue-500 text-white px-2 py-1 rounded-3xl hover:bg-blue-600 ml-2">
+                  sync
+                </span>
+              </Cameras>
+            ))
+          ) : (
+            <span>No cameras</span>
+          )}
         </div>
-        {/* <Message
+        {/* <Message  
       messageType="failed"
       message="Failed to fetch cameras."
     /> */}
       </div>
       {/* unsaved cameras */}
-      <div className="flex flex-wrap gap-2 mt-2 flex-col">
-        <h1>UnSaved Cameras</h1>
-        <div className="flex flex-wrap gap-2 mt-2">
-          {unsavedCameras?.map((unsavedCamera) => (
-            <Cameras>
-              <span className="text-gray-500 mr-1"></span>
-              {unsavedCamera.name}
-              <span className="bg-blue-500 text-white px-3 py-1 rounded-3xl hover:bg-blue-600 ml-2">
-                +
-              </span>
-            </Cameras>
-          ))}
-        </div>
-        {/* <Message
+      {unsavedCameras?.length! > 0 && (
+        <div className="flex flex-wrap gap-2 mt-2 flex-col">
+          <h1>UnSaved Cameras</h1>
+          <div className="flex flex-wrap gap-2 mt-2">
+            {unsavedCameras?.map((unsavedCamera) => (
+              <Cameras
+                deviceId={device.id}
+                camera={unsavedCamera}
+                key={unsavedCamera.cameraId}
+              >
+                <span className="text-gray-500 mr-1"></span>
+                {unsavedCamera.name}
+                <span className="bg-blue-500 text-white px-3 py-1 rounded-3xl hover:bg-blue-600 ml-2">
+                  +
+                </span>
+              </Cameras>
+            ))}
+          </div>
+          {/* <Message
       messageType="failed"
       message="Failed to fetch cameras."
     /> */}
-      </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -12,7 +12,6 @@ export type NavLinkType = {
   active: boolean;
 };
 
-// export type DeviceType = z.infer<typeof UncannyDeviceSchema>;
 export type UncannyDeviceType = {
   id?: number;
   label: string;
@@ -33,10 +32,11 @@ export type UncannyCameraType = {
   cameraId: number;
   externalId: number | null;
   name: string;
-  saved: boolean;
+  saved?: boolean;
   label?: string;
   ip?: string;
   port?: number;
+  deviceId?: number;
 };
 
 export type UncannyGetCameraType = {
@@ -44,6 +44,10 @@ export type UncannyGetCameraType = {
   message: string;
   status: number;
   success: boolean;
+};
+
+export type CameraContextType = {
+  handleAddCamera: (cameraDetails: UncannyCameraType) => void;
 };
 
 export type UncannyHandleBlurType = {

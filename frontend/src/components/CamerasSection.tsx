@@ -14,7 +14,6 @@ const CamerasSection = ({ deviceData }: CamerasSectionPropsType) => {
         {deviceData?.map((device) => (
           <CameraPerDevice key={device.id} device={device} />
         ))}
-        {/* each device end */}
       </div>
     </section>
   );

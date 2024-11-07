@@ -4,15 +4,15 @@ import { addCameraSchema } from "./schemas/camera.schama.js";
 
 export type unsavedCameraType = {
   activated: boolean;
-  externalId: number;
-  cameraId: number;
+  external_id: number;
+  camera_id: number;
   name: string;
 };
 
 export type ResponseCameraType = {
   saved: boolean;
   activated: boolean;
-  externalId: number;
+  externalId: number | null;
   cameraId: number;
   name: string;
   ip?: string;

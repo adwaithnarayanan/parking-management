@@ -75,6 +75,8 @@ export async function getSavedCamerasFromDb(device_id: number) {
 
   const unSavedCameras = (await getDummyUncannyCameras()).data;
 
+  console.log(unSavedCameras);
+
   const unSavedCamerasArr: unsavedCameraType[] = Object.keys(
     unSavedCameras.property
   ).map((cameraKey) => unSavedCameras.property[cameraKey]);
@@ -87,13 +89,39 @@ export async function getSavedCamerasFromDb(device_id: number) {
     );
 
     if (!saved) {
-      cameras.push({ ...unSavedCamera, saved: false });
+      cameras.push({
+        activated: unSavedCamera.activated,
+        externalId: unSavedCamera.external_id,
+        cameraId: unSavedCamera.camera_id,
+        name: unSavedCamera.name,
+        saved: false,
+      });
     }
   });
 
   return cameras
     ? { status: 200, success: true, message: "Fetched cameras", data: cameras }
     : { status: 403, success: false, message: "Unable to fetch data" };
+}
+
+export async function updateCamera({
+  id,
+  ...cameraDetails
+}: CameraType & { id: number }) {
+  const response = await Camera.update(cameraDetails, {
+    where: {
+      id: id,
+    },
+  });
+
+  if (response[0]) {
+    return {
+      status: 200,
+      message: "Successfully updated",
+      success: true,
+      data: cameraDetails,
+    };
+  } else return { status: 403, message: "Unable to edit", success: false };
 }
 
 export async function getDummyUncannyCameras() {
