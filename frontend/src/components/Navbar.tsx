@@ -2,13 +2,13 @@ import { NavInnerLinkType, NavLinkType } from "../../types.ts";
 import NavLinks from "./NavLinks.tsx";
 
 const navAccessControlLinks: NavInnerLinkType[] = [
-  { item: "Configuration", active: false },
-  { item: "ANPR Settings", active: true },
-  { item: "Gates and Actuators", active: false },
-  { item: "Identifiers", active: false },
-  { item: "Reservations", active: false },
-  { item: "Alerts", active: false },
-  { item: "ANPR Events", active: false },
+  { item: "Configuration", link: "/cofiguration" },
+  { item: "ANPR Settings", link: "/ANPRsettings" },
+  { item: "Gates and Actuators", link: "/gatesAndActuators" },
+  { item: "Identifiers", link: "/identifiers" },
+  { item: "Reservations", link: "/reservations" },
+  { item: "Alerts", link: "/alerts" },
+  { item: "ANPR Events", link: "/ANPRevents" },
 ];
 
 const navLinks: NavLinkType[] = [

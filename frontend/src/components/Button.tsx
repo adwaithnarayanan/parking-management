@@ -3,7 +3,12 @@ type ButtonPropsType = {
   index?: number;
   children: React.ReactNode;
   type: "submit" | "button";
-  btnType: "save" | "delete" | "refreshCamera" | "addNewDevice";
+  btnType:
+    | "save"
+    | "delete"
+    | "refreshCamera"
+    | "addNewDevice"
+    | "addIdentifier";
   handleClick?: ({ id, index }: { id?: number; index?: number }) => void;
 };
 
@@ -22,7 +27,8 @@ const Button = ({
     btnStyle = `bg-secondary-punchPink p-2 rounded-md hover:scale-110 h-fit ml-auto block`;
   } else if (btnType === "addNewDevice") {
     btnStyle = `inline-flex justify-center items-center w-full rounded-md border border-primary-dark shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 focus:outline-none focus:ring-offset-2`;
-  }
+  } else if (btnType === "addIdentifier")
+    btnStyle = `text-sm text-gray-800 bg-slate-200 px-6 py-2 hover:bg-slate-300 duration-300 my-2 capitalize`;
 
   return (
     <button

@@ -9,6 +9,7 @@ export const validationMiddleware =
       zodSchema.parse(req.body);
       next();
     } catch (err) {
+      console.log(9870987, err);
       if (err instanceof z.ZodError) {
         res
           .status(400)

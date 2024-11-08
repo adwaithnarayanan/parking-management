@@ -1,5 +1,7 @@
 import { apiClient } from "./src/httpClient/httpClient";
 import {
+  IdentifierGetType,
+  IdentifierType,
   UncannyCameraType,
   UncannyDeviceType,
   UncannyGetCameraType,
@@ -37,11 +39,25 @@ export const getCameras = async ({ deviceId }: { deviceId: number }) => {
 };
 
 export const addCamera = async (cameraDetails: UncannyCameraType) => {
-  console.log(cameraDetails);
   return (await apiClient.post(`cameras/`, cameraDetails)).data;
 };
 
 export const editCamera = async (cameraDetails: UncannyCameraType) => {
-  console.log(cameraDetails);
   return (await apiClient.put(`cameras/`, cameraDetails)).data;
+};
+
+export const getIdentifiers = async () => {
+  return (await apiClient.get<IdentifierGetType>(`identifiers/`)).data;
+};
+
+export const addIdentifer = async (identifierData: any) => {
+  return (await apiClient.post(`identifiers/`, identifierData)).data;
+};
+
+export const updateIdentifier = async (identifierData: any) => {
+  return (await apiClient.put(`identifiers/`, identifierData)).data;
+};
+
+export const deleteIdentifier = async ({ id }: { id: number }) => {
+  return (await apiClient.delete(`identifiers/${id}/`)).data;
 };

@@ -1,7 +1,7 @@
 import { UncannyHandleBlurType } from "../../types";
 
 type SectionInputFieldPropType = {
-  type: "text" | "number";
+  type: "text" | "number" | "date";
   id: string;
   name: string;
   placeholder?: string;
