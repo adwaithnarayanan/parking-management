@@ -1,12 +1,12 @@
-import asyncHandler from "express-async-handler";
 import {
   addIdentifierToDb,
   deleteIdentiferInDb,
   getIdentifiersFromDb,
   updateIdentifierInDb,
 } from "../services/identifier.service.js";
+import { NextFunction } from "express";
 
-export const addIdentifier = asyncHandler(async (req, res, next) => {
+export const addIdentifier = async (req: any, res: any, next: NextFunction) => {
   try {
     const identifierDetails = { ...req.body };
 
@@ -19,23 +19,25 @@ export const addIdentifier = asyncHandler(async (req, res, next) => {
 
     const response = await addIdentifierToDb(identifierDetails);
     res.status(201).json({ success: true, status: 201, data: response });
-  } catch (err: any) {
-    res.statusCode = 403;
-    throw new Error(err.message);
+  } catch (err) {
+    next(err);
   }
-});
+};
 
-export const getIdentifier = asyncHandler(async (req, res, next) => {
+export const getIdentifier = async (req: any, res: any, next: NextFunction) => {
   try {
     const data = await getIdentifiersFromDb();
     res.status(201).json({ status: 201, success: true, data: data });
-  } catch (err: any) {
-    res.statusCode = 403;
-    throw new Error(err.message);
+  } catch (err) {
+    next(err);
   }
-});
+};
 
-export const editIdentifier = asyncHandler(async (req, res) => {
+export const editIdentifier = async (
+  req: any,
+  res: any,
+  next: NextFunction
+) => {
   try {
     const identifierDetails = { ...req.body };
 
@@ -45,18 +47,20 @@ export const editIdentifier = asyncHandler(async (req, res) => {
 
     const response = await updateIdentifierInDb(identifierDetails);
     res.status(201).json({ success: true, status: 201, data: response });
-  } catch (err: any) {
-    res.statusCode = 403;
-    throw new Error(err.message);
+  } catch (err) {
+    next(err);
   }
-});
+};
 
-export const deleteIdentifier = asyncHandler(async (req, res) => {
+export const deleteIdentifier = async (
+  req: any,
+  res: any,
+  next: NextFunction
+) => {
   try {
     const response = await deleteIdentiferInDb(Number(req.params.id));
     res.status(201).json(response);
-  } catch (err: any) {
-    res.statusCode = 403;
-    throw new Error(err.message);
+  } catch (err) {
+    next(err);
   }
-});
+};

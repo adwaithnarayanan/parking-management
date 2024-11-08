@@ -12,8 +12,11 @@ import {
   editIdentifierSchema,
 } from "../schemas/identifier.schema.js";
 import { paramsValidation } from "../middleware/validation.params.middleware.js";
+import { addIdentifierToDb } from "../services/identifier.service.js";
 
 const identifierRouter = express.Router();
+
+// identifierRouter.post("/", validationMiddleware(addIdentifierSchema), addIdentifier, addIdentifierToDb);
 
 identifierRouter.post(
   "/",

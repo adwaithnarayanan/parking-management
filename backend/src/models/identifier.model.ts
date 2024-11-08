@@ -30,12 +30,10 @@ export class Identifier extends Model<
   @NotNull
   declare licensePlate: string;
 
-  @Attribute(DataTypes.INTEGER)
-  @NotNull
-  declare parkingId: number;
+  @Attribute(DataTypes.STRING)
+  declare parkingId: string;
 
   @Attribute(DataTypes.STRING)
-  @NotNull
   declare organizationName: string;
 
   @Attribute(DataTypes.STRING)
@@ -52,9 +50,9 @@ export class Identifier extends Model<
   @NotNull
   declare type: string;
 
-  @Attribute(DataTypes.DATE)
-  declare validFrom: Date | null | undefined;
+  @Attribute(DataTypes.STRING)
+  declare validFrom: string | undefined;
 
-  @Attribute(DataTypes.DATE)
-  declare validUpTo: Date | null | undefined;
+  @Attribute(DataTypes.STRING)
+  declare validUpTo: string | undefined;
 }

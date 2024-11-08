@@ -1,12 +1,17 @@
 import { ErrorRequestHandler, NextFunction } from "express";
 import { constants } from "../constants.js";
 
-const errorHandler: ErrorRequestHandler = (err: any, req: any, res: any) => {
-  const statusCode = res.statusCode ? res.statusCode : 500;
+const errorHandler: ErrorRequestHandler = (
+  err: any,
+  req: any,
+  res: any,
+  _next: NextFunction
+) => {
+  const statusCode = err.statusCode;
 
   switch (statusCode) {
     case constants.VALIDATION_ERROR:
-      res.json({
+      res.status(constants.VALIDATION_ERROR).send({
         title: "Validation  failed",
         status: constants.VALIDATION_ERROR,
         success: false,
@@ -16,7 +21,7 @@ const errorHandler: ErrorRequestHandler = (err: any, req: any, res: any) => {
       break;
 
     case constants.NOT_FOUND:
-      res.json({
+      res.status(constants.NOT_FOUND).send({
         title: "Not found",
         status: constants.NOT_FOUND,
         succes: false,
@@ -26,7 +31,7 @@ const errorHandler: ErrorRequestHandler = (err: any, req: any, res: any) => {
       break;
 
     case constants.UNAUTHORIZED:
-      res.json({
+      res.status(constants.UNAUTHORIZED).send({
         title: "Un-Authorized",
         status: constants.UNAUTHORIZED,
         success: false,
@@ -36,7 +41,7 @@ const errorHandler: ErrorRequestHandler = (err: any, req: any, res: any) => {
       break;
 
     case constants.FORBIDDEN:
-      res.json({
+      res.status(constants.FORBIDDEN).send({
         title: "Forbidden",
         status: constants.FORBIDDEN,
         success: false,
@@ -45,18 +50,14 @@ const errorHandler: ErrorRequestHandler = (err: any, req: any, res: any) => {
       });
       break;
 
-    case constants.SERVER_ERROR:
-      res.json({
+    default:
+      res.status(constants.SERVER_ERROR).send({
         title: "Server Error",
         status: constants.SERVER_ERROR,
         success: false,
         message: err.message,
         stackTrace: err.stack,
       });
-      break;
-
-    default:
-      console.log("No Error");
       break;
   }
 };
