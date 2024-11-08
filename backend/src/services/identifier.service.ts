@@ -1,3 +1,4 @@
+import { HttpException } from "../exceptions/httpExceptions.js";
 import { Identifier } from "../models/identifier.model.js";
 import { EditIdentifierType, IdentifierType } from "../types.js";
 import { dataFormatter } from "../utils/dataFormatter.js";
@@ -17,12 +18,25 @@ export async function getIdentifiersFromDb() {
 }
 
 export async function addIdentifierToDb(identifierObj: IdentifierType) {
+  const findVehicle = await Identifier.findAll({
+    where: { identifierId: identifierObj.identifierId.trim() },
+  });
+
+  if (findVehicle[0])
+    throw new HttpException({
+      message: "Vehicle already exists",
+      statusCode: 403,
+    });
+
   const response = await Identifier.create({ ...identifierObj });
 
   const identifier = dataFormatter([{ ...response.dataValues }]);
-
   if (identifier) return identifier;
-  else throw new Error("Unable to add Identifier");
+  else
+    throw new HttpException({
+      message: "Unable to add Identifier",
+      statusCode: 403,
+    });
 }
 
 export async function updateIdentifierInDb({
@@ -35,7 +49,11 @@ export async function updateIdentifierInDb({
 
   if (response[0]) {
     return { id, ...identifierData };
-  } else throw new Error("Unable to update data");
+  } else
+    throw new HttpException({
+      message: "Unable to update data",
+      statusCode: 403,
+    });
 }
 
 export async function deleteIdentiferInDb(id: number) {
@@ -43,6 +61,9 @@ export async function deleteIdentiferInDb(id: number) {
   if (response) {
     return { message: "Successfully deleted" };
   } else {
-    throw new Error("Unable to delete Identifier");
+    throw new HttpException({
+      message: "Unable to delete Identifier",
+      statusCode: 403,
+    });
   }
 }

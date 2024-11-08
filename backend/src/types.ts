@@ -35,7 +35,7 @@ export type AllCamerasType = {
 export type CameraType = z.infer<typeof addCameraSchema>;
 
 export type DeviceType = z.infer<typeof addDeviceSchema>;
-export type EditDeviceType = z.infer<typeof editDeviceSchema>;
+export type editDeviceType = z.infer<typeof editDeviceSchema>;
 
 export type IdentifierType = z.infer<typeof addIdentifierSchema> & {
   identifierId: string;
