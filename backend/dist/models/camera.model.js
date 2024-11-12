@@ -5,7 +5,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 import { DataTypes, Model, } from "@sequelize/core";
-import { Attribute, AutoIncrement, NotNull, PrimaryKey, } from "@sequelize/core/decorators-legacy";
+import { Attribute, AutoIncrement, DeletedAt, HasMany, NotNull, PrimaryKey, } from "@sequelize/core/decorators-legacy";
+import { EventLog } from "./EventLog.model.js";
 export class Camera extends Model {
 }
 __decorate([
@@ -22,9 +23,6 @@ __decorate([
     Attribute(DataTypes.STRING),
     NotNull
 ], Camera.prototype, "name", void 0);
-__decorate([
-    Attribute(DataTypes.INTEGER)
-], Camera.prototype, "externalId", void 0);
 __decorate([
     Attribute(DataTypes.BOOLEAN),
     NotNull
@@ -45,4 +43,17 @@ __decorate([
     Attribute(DataTypes.STRING),
     NotNull
 ], Camera.prototype, "label", void 0);
+__decorate([
+    Attribute(DataTypes.STRING),
+    NotNull
+], Camera.prototype, "cameraType", void 0);
+__decorate([
+    DeletedAt
+], Camera.prototype, "deletedAt", void 0);
+__decorate([
+    HasMany(() => EventLog, {
+        foreignKey: "cameraId",
+        sourceKey: "id",
+    })
+], Camera.prototype, "eventLog", void 0);
 //# sourceMappingURL=camera.model.js.map

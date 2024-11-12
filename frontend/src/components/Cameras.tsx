@@ -57,8 +57,8 @@ const Cameras = ({ deviceId, camera, children }: CamerasPropsType) => {
           handleAddCamera={handleAddOrEditCamera}
           cameraValues={
             camera?.ip && camera?.port && camera?.label
-              ? { ip: camera?.ip, port: camera?.port, label: camera?.label }
-              : { ip: "", port: 0, label: "" }
+              ? { ip: camera?.ip, port: camera?.port, label: camera?.label, cameraType: camera.cameraType }
+              : { ip: "", port: 0, label: "", cameraType:'entry' }
           }
           setShowForm={setShowForm}
         />

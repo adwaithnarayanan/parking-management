@@ -4,13 +4,17 @@ import {
   InferAttributes,
   InferCreationAttributes,
   Model,
+  NonAttribute,
 } from "@sequelize/core";
 import {
   Attribute,
   AutoIncrement,
+  DeletedAt,
+  HasMany,
   NotNull,
   PrimaryKey,
 } from "@sequelize/core/decorators-legacy";
+import { EventLog } from "./EventLog.model.js";
 
 export class Camera extends Model<
   InferAttributes<Camera>,
@@ -29,9 +33,6 @@ export class Camera extends Model<
   @Attribute(DataTypes.STRING)
   @NotNull
   declare name: string;
-
-  @Attribute(DataTypes.INTEGER)
-  declare externalId: number | null;
 
   @Attribute(DataTypes.BOOLEAN)
   @NotNull
@@ -52,4 +53,17 @@ export class Camera extends Model<
   @Attribute(DataTypes.STRING)
   @NotNull
   declare label: string;
+
+  @Attribute(DataTypes.STRING)
+  @NotNull
+  declare cameraType: string;
+
+  @DeletedAt
+  declare readonly deletedAt: CreationOptional<Date>;
+
+  @HasMany(() => EventLog, {
+    foreignKey: "cameraId",
+    sourceKey: "id",
+  })
+  declare eventLog: NonAttribute<EventLog[]> | null;
 }
