@@ -8,7 +8,8 @@ type ButtonPropsType = {
     | "delete"
     | "refreshCamera"
     | "addNewDevice"
-    | "addIdentifier";
+    | "addIdentifier"
+    | "download";
   handleClick?: ({ id, index }: { id?: number; index?: number }) => void;
 };
 
@@ -29,6 +30,8 @@ const Button = ({
     btnStyle = `inline-flex justify-center items-center w-full rounded-md border border-primary-dark shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 focus:outline-none focus:ring-offset-2`;
   } else if (btnType === "addIdentifier")
     btnStyle = `text-sm text-gray-800 bg-slate-200 px-6 py-2 hover:bg-slate-300 duration-300 my-2 capitalize`;
+  else if (btnType === "download")
+    btnStyle = `mx-2 px-2 py-1 bg-blue-900 text-white my-8 hover:bg-blue-800 rounded-sm`;
 
   return (
     <button

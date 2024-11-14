@@ -10,12 +10,9 @@ import { JSONB } from "@sequelize/core/_non-semver-use-at-your-own-risk_/abstrac
 import {
   Attribute,
   AutoIncrement,
-  BelongsTo,
   DeletedAt,
-  HasOne,
   PrimaryKey,
 } from "@sequelize/core/decorators-legacy";
-import { Camera } from "./camera.model.js";
 
 export class EventLog extends Model<
   InferAttributes<EventLog>,

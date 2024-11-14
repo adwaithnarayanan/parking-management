@@ -90,3 +90,32 @@ export type IdentifierGetType = {
   status: number;
   success: boolean;
 };
+
+export type EventType = {
+  id: number;
+  eventLog: {
+    cameraId: number;
+    timeStamp: string;
+    identifierId: string;
+    externalCamId: string;
+    images: string[];
+  };
+};
+
+export type GetEventType = {
+  message: string;
+};
+
+export type ReportType = {
+  category: string;
+  duration: string;
+  entryCam: string;
+  exitCam: string;
+  entryTime: string;
+  exitTime: string;
+  tagNo: "";
+  validity: string;
+  vehicleNo: string;
+};
+
+export type GetReportType = { message: string; data: ReportType[] };

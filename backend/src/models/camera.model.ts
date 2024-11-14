@@ -15,6 +15,7 @@ import {
   PrimaryKey,
 } from "@sequelize/core/decorators-legacy";
 import { EventLog } from "./EventLog.model.js";
+import { EntryExitCameraMap } from "./EntryExitCameraMap.js";
 
 export class Camera extends Model<
   InferAttributes<Camera>,
@@ -66,4 +67,7 @@ export class Camera extends Model<
     sourceKey: "id",
   })
   declare eventLog: NonAttribute<EventLog[]> | null;
+
+  @HasMany(() => EntryExitCameraMap, "cameraId")
+  declare entryExitMap: NonAttribute<EntryExitCameraMap[]>;
 }

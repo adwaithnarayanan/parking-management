@@ -3,6 +3,7 @@ import { Camera } from "../models/camera.model.js";
 import { EventLog } from "../models/EventLog.model.js";
 import { dataFormatter } from "../utils/dataFormatter.js";
 import { markEntry, markExit } from "./entryExit.service.js";
+import { setMapValues } from "./entryExitMapCamera.service.js";
 
 export const getEventLogFromDb = async () => {
   const data = (await EventLog.findAll({ attributes: ["id", "eventLog"] })).map(
@@ -29,6 +30,13 @@ export const addEventLogIntoDb = async (eventObj: any) => {
       timeStamp: eventObj.log.info.event_timestamp,
       identifierId: eventObj.log.event.name,
       externalCamId: eventObj.log.event.external_camera_id,
+      images: eventObj.log.image_urls.cloud_images,
+      cameraType:
+        camera?.cameraType === "entry"
+          ? "entry"
+          : camera?.cameraType === "exit"
+          ? "exit"
+          : "",
     },
   };
 
@@ -39,20 +47,27 @@ export const addEventLogIntoDb = async (eventObj: any) => {
   });
   const event = dataFormatter([{ ...response.dataValues }]);
 
+  if (!camera) return;
+
+  let id: number;
+
   if (camera?.cameraType === "entry")
-    markEntry({
+    id = await markEntry({
       identifierId: event[0].log.event.name,
       entryTime: new Date(Number(event[0].log.info.event_timestamp)),
       exitTime: null,
       invalidatedAt: null,
     });
   else if (camera?.cameraType === "exit") {
-    markExit({
+    id = await markExit({
       identifierId: event[0].log.event.name,
       exitTime: new Date(Number(event[0].log.info.event_timestamp)),
       invalidatedAt: null,
     });
   }
+
+  await setMapValues({ cameraId: externalCamId, entryExitId: id! });
+
   if (event) return;
   else
     throw new HttpException({

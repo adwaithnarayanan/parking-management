@@ -1,6 +1,7 @@
 import { EntryExitLog } from "../models/EntryExitLog.model.js";
 
 export const markEntry = async (entryObj: any) => {
+  let response: { id: number };
   const findLog = (
     await EntryExitLog.findOne({
       where: { identifierId: entryObj.identifierId },
@@ -9,7 +10,7 @@ export const markEntry = async (entryObj: any) => {
   )?.dataValues;
 
   if (!findLog) {
-    await EntryExitLog.create({ ...entryObj });
+    response = (await EntryExitLog.create({ ...entryObj })).dataValues;
   } else if (findLog?.entryTime && !findLog.exitTime) {
     await EntryExitLog.update(
       { exitTime: null, invalidatedAt: new Date() },
@@ -21,13 +22,15 @@ export const markEntry = async (entryObj: any) => {
       }
     );
 
-    await EntryExitLog.create({ ...entryObj });
+    response = (await EntryExitLog.create({ ...entryObj })).dataValues;
   } else if (
     (findLog?.entryTime && findLog.exitTime) ||
     (!findLog.entryTime && findLog.exitTime)
   ) {
-    await EntryExitLog.create({ ...entryObj });
+    response = (await EntryExitLog.create({ ...entryObj })).dataValues;
   }
+
+  return response!.id;
 };
 
 export const markExit = async (exitObj: any) => {
@@ -35,6 +38,8 @@ export const markExit = async (exitObj: any) => {
     where: { identifierId: exitObj.identifierId },
     order: [["id", "DESC"]],
   });
+
+  let response;
 
   if (findLog && findLog.entryTime !== null && findLog.exitTime === null) {
     await EntryExitLog.update(
@@ -47,12 +52,16 @@ export const markExit = async (exitObj: any) => {
         },
       }
     );
+    response = findLog.id;
   } else {
-    await EntryExitLog.create({
-      identifierId: exitObj.identifierId,
-      entryTime: null,
-      exitTime: exitObj.exitTime,
-      invalidatedAt: new Date(),
-    });
+    response = (
+      await EntryExitLog.create({
+        identifierId: exitObj.identifierId,
+        entryTime: null,
+        exitTime: exitObj.exitTime,
+        invalidatedAt: new Date(),
+      })
+    ).dataValues.id;
   }
+  return response;
 };
