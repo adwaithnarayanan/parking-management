@@ -18,8 +18,6 @@ export const getPdfReport = async (req: any, res: any, next: NextFunction) => {
   try {
     const response = await getPdf();
 
-    console.log(24234234234);
-
     res.download("report.pdf");
     res.status(200);
   } catch (err) {

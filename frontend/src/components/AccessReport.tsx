@@ -1,6 +1,4 @@
 import { useRef } from "react";
-import { useDownloadCsv } from "../hooks/APIs/useDownloadCsv";
-import { useDownloadPdf } from "../hooks/APIs/useDownloadPdf";
 import { useGetReport } from "../hooks/APIs/useGetReport";
 import Button from "./Button";
 import ReportTable from "./ReportTable";
@@ -9,13 +7,22 @@ const BASE_URL = "http://localhost:3001/report/";
 
 const AccessReport = () => {
   const { data: report } = useGetReport();
-  const { refetch: refetchDownloadCsv } = useDownloadCsv();
-  const { refetch: refetchDownloadPdf } = useDownloadPdf();
   const tableRef = useRef<HTMLDivElement | null>(null);
 
-  const startDate = report && new Date(report?.data[0].entryTime);
+  const startDate =
+    report &&
+    new Date(
+      report?.data[0].entryTime
+        ? report?.data[0].entryTime
+        : report?.data[0].exitTime
+    );
   const endDate =
-    report && new Date(report?.data[report.data.length - 1].entryTime);
+    report &&
+    new Date(
+      report?.data[report.data.length - 1].entryTime
+        ? report?.data[report.data.length - 1].entryTime
+        : report?.data[report.data.length - 1].exitTime
+    );
 
   const handleDownloadPdf = () => {
     // refetchDownloadPdf();

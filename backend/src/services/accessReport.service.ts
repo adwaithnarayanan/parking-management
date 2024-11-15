@@ -2,12 +2,11 @@ import { Camera } from "../models/camera.model.js";
 import { EntryExitCameraMap } from "../models/EntryExitCameraMap.js";
 import { EntryExitLog } from "../models/EntryExitLog.model.js";
 import { Identifier } from "../models/identifier.model.js";
-import fs from "fs";
 import { Parser } from "@json2csv/plainjs";
 import { HttpException } from "../exceptions/httpExceptions.js";
 import PDFDocument from "pdfkit-table";
-import { title } from "process";
-// import PDFDocument from "pdfkit";
+import fs from "fs";
+import { tableHeader } from "../utils/utils.js";
 
 export const getReportFromDb = async () => {
   const entryExit = (
@@ -91,45 +90,60 @@ export const getReportFromDb = async () => {
 export const getPdf = async () => {
   const report = await getReportFromDb();
 
-  const headers = Object.keys(report[0]);
-  const data = report.map((report) =>
-    Object.keys(report).map((key: string) =>
-      (report as any)[key] === null || (report as any)[key] === ""
-        ? "-"
-        : (report as any)[key]
-    )
-  );
+  const data = report.map((report) => ({
+    ...report,
+    entryTime: report.entryTime === null ? "-" : report.entryTime,
+    exitTime: report.exitTime === null ? "-" : report.exitTime,
+    category: report.category === undefined ? "-" : report.category,
+    tagNo: report.tagNo === "" ? "-" : report.tagNo,
+    entryCam: report.entryCam === "" ? "-" : report.entryCam,
+    exitCam: report.exitCam === "" ? "-" : report.exitCam,
+    duration: report.duration === "" ? "-" : report.duration,
+  }));
 
-  let doc = new PDFDocument({ margin: 30, size: "A4" });
-  doc.pipe(fs.createWriteStream("report.pdf"));
+  let from = report[0].entryTime ? report[0].entryTime : report[0].exitTime;
+  let upto = report[report.length - 1].exitTime
+    ? report[report.length - 1].exitTime
+    : report[report.length - 1].entryTime;
+
+  const doc = new PDFDocument({
+    size: "A4",
+    layout: "landscape",
+    margins: { top: 20, left: 50, right: 50, bottom: 80 },
+  });
+  const stream = fs.createWriteStream("report.pdf");
+
+  doc.pipe(stream);
+
+  doc.fontSize(14).text("Access Report", { align: "center" });
 
   const table = {
-    // title: "Access Report",
-    title: "Access report",
-
-    headers: [
-      "Category",
-      "Vehicle No",
-      "Tag No",
-      "Entry cam",
-      "Exit cam",
-      "Entry time",
-      "Exit time",
-      "Duration",
-      "Vehicle Status",
-    ],
-    rows: [...data],
+    headers: tableHeader,
+    datas: [...data],
   };
 
-  // doc.image("./src/assets/images/parkzeus-logo.png", {
-  //   fit: [250, 300],
-  //   align: "center",
-  //   valign: "center",
-  // });
+  doc.image("./src/assets/images/parkzeus-logo.jpg", 16, 8, {
+    width: 80,
+    valign: "center",
+  });
+
+  doc.fontSize(9).text(`${from} - ${upto}`, { align: "center", lineGap: 2 });
+
+  doc.moveDown();
 
   await doc.table(table, {
-    prepareHeader: () => doc.font("Helvetica-Bold").fontSize(8),
+    prepareHeader: () =>
+      doc.font("Helvetica-Bold").lineGap(10).fontSize(8).fill("white"),
+    prepareRow: (row, indexColumn, indexRow, rectRow, rectCell) => {
+      return doc
+        .fill("black")
+        .font("Helvetica")
+        .strokeColor("gray")
+        .strokeOpacity(0.8)
+        .lineGap(5);
+    },
   });
+
   doc.end();
 
   return doc;

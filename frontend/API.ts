@@ -70,15 +70,3 @@ export const getEvents = async () => {
 export const getReport = async () => {
   return (await apiClient.get<GetReportType>(`report`)).data;
 };
-
-export const downloadCsv = async () => {
-  return await apiClient.get(`report/downloadCsv`, {
-    headers: {
-      "Content-Type": "application/csv",
-    },
-  });
-};
-
-export const donwloadPdf = async () => {
-  return (await apiClient.get(`report/downloadPdf`)).data;
-};

@@ -104,6 +104,7 @@ export type EventType = {
 
 export type GetEventType = {
   message: string;
+  data: EventType[];
 };
 
 export type ReportType = {
