@@ -4,6 +4,8 @@ import { PostgresDialect } from "@sequelize/postgres";
 import { Camera } from "./models/camera.model.js";
 import { Device } from "./models/devices.model.js";
 import { Identifier } from "./models/identifier.model.js";
+import { EventLog } from "./models/EventLog.model.js";
+import { EntryExitLog } from "./models/EntryExitLog.model.js";
 
 const options = {
   port: Number(process.env.PGPORT),
@@ -12,7 +14,7 @@ const options = {
   password: process.env.PGPASSWORD,
   database: process.env.PGDATABASE,
 
-  models: [Device, Camera, Identifier],
+  models: [Device, Camera, Identifier, EventLog, EntryExitLog],
   dialect: PostgresDialect,
 };
 

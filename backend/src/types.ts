@@ -8,7 +8,6 @@ import {
 
 export type unsavedCameraType = {
   activated: boolean;
-  external_id: number;
   camera_id: number;
   name: string;
 };
@@ -16,7 +15,6 @@ export type unsavedCameraType = {
 export type ResponseCameraType = {
   saved: boolean;
   activated: boolean;
-  externalId: number | null;
   cameraId: number;
   name: string;
   ip?: string;
@@ -28,7 +26,6 @@ export type AllCamerasType = {
   status: number;
   message: string | Error | unknown;
   success: boolean;
-  // data?: unsavedCameraType;
   data?: any;
 };
 

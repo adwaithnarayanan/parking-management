@@ -4,13 +4,18 @@ import {
   InferAttributes,
   InferCreationAttributes,
   Model,
+  NonAttribute,
 } from "@sequelize/core";
 import {
   Attribute,
   AutoIncrement,
+  DeletedAt,
+  HasMany,
   NotNull,
   PrimaryKey,
+  Unique,
 } from "@sequelize/core/decorators-legacy";
+import { EntryExitLog } from "./EntryExitLog.model.js";
 
 export class Identifier extends Model<
   InferAttributes<Identifier>,
@@ -24,6 +29,7 @@ export class Identifier extends Model<
 
   @Attribute(DataTypes.STRING)
   @NotNull
+  @Unique
   declare identifierId: string;
 
   @Attribute(DataTypes.STRING)
@@ -55,4 +61,14 @@ export class Identifier extends Model<
 
   @Attribute(DataTypes.STRING)
   declare validUpTo: string | undefined;
+
+  @DeletedAt
+  declare deletedAt: Date | null;
+
+  @HasMany(() => EntryExitLog, {
+    foreignKey: "identifierId",
+    sourceKey: "identifierId",
+  })
+  declare entryExitLogs: NonAttribute<EntryExitLog[]>;
+
 }

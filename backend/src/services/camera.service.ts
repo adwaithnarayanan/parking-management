@@ -89,7 +89,6 @@ export async function getSavedCamerasFromDb(device_id: number) {
     if (!saved) {
       cameras.push({
         activated: unSavedCamera.activated,
-        externalId: unSavedCamera.external_id,
         cameraId: unSavedCamera.camera_id,
         name: unSavedCamera.name,
         saved: false,

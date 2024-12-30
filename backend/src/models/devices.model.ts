@@ -52,7 +52,6 @@ export class Device extends Model<
   @DeletedAt
   declare readonly deletionDate: CreationOptional<Date>;
 
-  // @HasMany(() => Camera, "deviceId")
   @HasMany(() => Camera, {
     foreignKey: "deviceId",
     sourceKey: "id",

@@ -4,12 +4,13 @@ import { UncannyCameraSchema } from "../validationSchamas/schema";
 import { useRef } from "react";
 
 type AddCameraFormPropsType = {
-  cameraValues: { ip: string; label: string; port: number };
+  cameraValues: { ip: string; label: string; port: number, cameraType:string };
   setShowForm: React.Dispatch<React.SetStateAction<boolean>>;
   handleAddCamera: (cameraDetails: {
     ip: string;
     label: string;
     port: number;
+    cameraType:string;
   }) => void;
 };
 
@@ -104,6 +105,25 @@ const AddCameraForm = ({
                     />
                     <span className="text-red-400 text-sm">
                       {touched.label && errors.label}
+                    </span>
+                  </div>
+
+                  <div className="mb-4">
+                    <div className="text-gray-600 text-sm w-full mb-2">
+                      Camera Type
+                    </div>
+                    <select
+                      id="cameraType"
+                      name="cameraType"
+                      className="px-2 w-full py-1 border-2"
+                      value={values.cameraType}
+                      onChange={handleChange}
+                    >
+                      <option value="entry">Entry</option>
+                      <option value="exit">Exit</option>
+                    </select>
+                    <span className="text-red-400 text-sm">
+                      {touched.cameraType && errors.cameraType}
                     </span>
                   </div>
                   <button

@@ -22,6 +22,7 @@ const UncannyCameraSchema = yup.object().shape({
   label: yup.string().required(REQUIRED),
   ip: yup.string().required(REQUIRED),
   port: yup.number().min(1, "Should be positive").required(REQUIRED),
+  cameraType: yup.string().required("Select one").oneOf(["entry", "exit"]),
 });
 
 const IdentifierSchema = yup.object().shape({

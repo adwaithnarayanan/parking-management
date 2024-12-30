@@ -40,6 +40,7 @@ export type UncannyCameraType = {
   ip?: string;
   port?: number;
   deviceId?: number;
+  cameraType: string;
 };
 
 export type UncannyGetCameraType = {

@@ -4,7 +4,6 @@ export const addCameraSchema = z.object({
   cameraId: z.number().int().min(0),
   name: z.string().min(3),
   activated: z.boolean(),
-  externalId: z.number().min(0).nullable(),
   deviceId: z.number().min(0),
   ip: z
     .string()
@@ -12,6 +11,7 @@ export const addCameraSchema = z.object({
     .refine((ip) => ip.split(".").every((i) => Number(i) <= 255)),
   port: z.number().min(0),
   label: z.string().min(3),
+  cameraType: z.string().min(1),
 });
 
 export const deleteCameraSchema = z.object({
