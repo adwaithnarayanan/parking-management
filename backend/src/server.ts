@@ -7,6 +7,7 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import { identifierRouter } from "./routes/identifiers.routes.js";
 import { webhookRouter } from "./routes/webhook.routes.js";
+import { accessReportRouter } from "./routes/accessReport.routes.js";
 
 const app = express();
 
@@ -22,7 +23,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/devices", deviceRouter);
 app.use("/cameras", cameraRouter);
 app.use("/identifiers", identifierRouter);
-app.use("/webhook/", webhookRouter);
+app.use("/webhook", webhookRouter);
+app.use("/report", accessReportRouter);
 
 app.all("*", (_, res) => {
   res.statusCode = 404;

@@ -9,6 +9,7 @@ const navAccessControlLinks: NavInnerLinkType[] = [
   { item: "Reservations", link: "/reservations" },
   { item: "Alerts", link: "/alerts" },
   { item: "ANPR Events", link: "/ANPRevents" },
+  { item: "Access Report", link: "/accessReport" },
 ];
 
 const navLinks: NavLinkType[] = [

@@ -1,7 +1,8 @@
 import { apiClient } from "./src/httpClient/httpClient";
 import {
+  GetEventType,
+  GetReportType,
   IdentifierGetType,
-  IdentifierType,
   UncannyCameraType,
   UncannyDeviceType,
   UncannyGetCameraType,
@@ -60,4 +61,12 @@ export const updateIdentifier = async (identifierData: any) => {
 
 export const deleteIdentifier = async ({ id }: { id: number }) => {
   return (await apiClient.delete(`identifiers/${id}/`)).data;
+};
+
+export const getEvents = async () => {
+  return (await apiClient.get<GetEventType>(`webhook/event`)).data;
+};
+
+export const getReport = async () => {
+  return (await apiClient.get<GetReportType>(`report`)).data;
 };

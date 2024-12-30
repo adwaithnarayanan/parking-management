@@ -4,6 +4,8 @@ import Identifiers from "./components/Identifiers";
 import MainBody from "./components/MainBody";
 import Navbar from "./components/Navbar";
 import PageNotFound from "./components/PageNotFound";
+import ANPREvents from "./components/ANPREvents";
+import AccessReport from "./components/AccessReport";
 
 function App() {
   return (
@@ -15,6 +17,8 @@ function App() {
           <Routes>
             <Route path="/ANPRsettings" element={<MainBody />} />
             <Route path="/identifiers" element={<Identifiers />} />
+            <Route path="/ANPRevents" element={<ANPREvents />} />
+            <Route path="/accessReport" element={<AccessReport />} />
             <Route path="*" element={<PageNotFound />} />
           </Routes>
         </div>

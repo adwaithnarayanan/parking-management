@@ -6,6 +6,7 @@ import { Device } from "./models/devices.model.js";
 import { Identifier } from "./models/identifier.model.js";
 import { EventLog } from "./models/EventLog.model.js";
 import { EntryExitLog } from "./models/EntryExitLog.model.js";
+import { EntryExitCameraMap } from "./models/EntryExitCameraMap.js";
 
 const options = {
   port: Number(process.env.PGPORT),
@@ -14,7 +15,14 @@ const options = {
   password: process.env.PGPASSWORD,
   database: process.env.PGDATABASE,
 
-  models: [Device, Camera, Identifier, EventLog, EntryExitLog],
+  models: [
+    Device,
+    Camera,
+    Identifier,
+    EventLog,
+    EntryExitLog,
+    EntryExitCameraMap,
+  ],
   dialect: PostgresDialect,
 };
 
