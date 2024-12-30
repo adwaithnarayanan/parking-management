@@ -1,6 +1,9 @@
+import { InferType } from "yup";
+import { IdentifierSchema } from "./src/validationSchamas/schema";
+
 export type NavInnerLinkType = {
   item: string;
-  active: boolean;
+  link: string;
 };
 
 export type Devices = "uncanny" | "carrida" | "";
@@ -62,4 +65,27 @@ export type UncannyHandleChangeType = {
   ): T_1 extends React.ChangeEvent<any>
     ? void
     : (e: string | React.ChangeEvent<any>) => void;
+};
+
+export type IdentifierType = {
+  id?: number;
+  identifierId: string | undefined;
+  licensePlate: string;
+  organizationName: string | undefined;
+  ownerEmail: string | undefined;
+  ownerName: string | undefined;
+  parkingId: string | undefined;
+  type?: string;
+  validFrom: string | undefined;
+  validUpTo: string | undefined;
+  vehicleType: string;
+};
+
+export type InitialIdentifierType = InferType<typeof IdentifierSchema>;
+
+export type IdentifierGetType = {
+  data: IdentifierType[];
+  error?: Error;
+  status: number;
+  success: boolean;
 };

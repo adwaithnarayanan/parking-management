@@ -1,3 +1,4 @@
+import { NavLink } from "react-router-dom";
 import { NavLinkType } from "../../types";
 
 type NavLinksPropsType = {
@@ -30,9 +31,15 @@ const NavLinks = ({ navItem }: NavLinksPropsType) => {
               key={navLink.item}
               className="px-2 py-1 transition-colors duration-150 hover:text-gray-800 cursor-pointer"
             >
-              <span className={`w-full ${navLink.active && "text-gray-800"}`}>
+              <NavLink
+                to={navLink.link}
+                // className={`w-full ${navLink.active && "text-gray-800"}`}
+                className={({ isActive }) =>
+                  `w-full ${isActive && "text-gray-800"}`
+                }
+              >
                 {navLink.item}
-              </span>
+              </NavLink>
             </li>
           ))}
         </ul>
