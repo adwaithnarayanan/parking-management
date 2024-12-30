@@ -70,4 +70,5 @@ export class Identifier extends Model<
     sourceKey: "identifierId",
   })
   declare entryExitLogs: NonAttribute<EntryExitLog[]>;
+
 }
